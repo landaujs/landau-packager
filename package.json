@@ -1,0 +1,14 @@
+{
+  "name": "@landaujs/landau-packager",
+  "version": "0.0.1",
+  "description": "Server for rendering Landau components to 3D objects",
+  "main": "index.js",
+  "repository": "github:landaujs/landau-packager",
+  "bugs": "https://github.com/landaujs/landau-packager/issues",
+  "author": "Maximilian Goisser <goisser94@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}
