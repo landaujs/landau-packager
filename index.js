@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var decache = require('decache');
 
 var app = express();
 app.use(bodyParser.json());
@@ -17,7 +18,7 @@ function buildWithPos(obj, pos) {
 
 app.post('/render', function (req, res) {
   console.log('Module ', req.body.module_path, '- render', 'pos', req.body.pos);
-  delete(require.cache[require.resolve(req.body.module_path)]);
+  decache(req.body.module_path);
   var obj = require(req.body.module_path);
 
   try {
@@ -34,7 +35,7 @@ app.post('/render', function (req, res) {
 
 app.post('/tree', function (req, res) {
   console.log('Module ', req.body.module_path, '- tree', 'pos', req.body.pos);
-  delete(require.cache[require.resolve(req.body.module_path)]);
+  decache(req.body.module_path);
   var obj = require(req.body.module_path);
 
   try {
