@@ -11,5 +11,8 @@
     "body-parser": "^1.17.2",
     "decache": "^4.3.0",
     "express": "^4.15.3"
+  },
+  "peerDependencies": {
+    "@landaujs/landau": "0.0.1"
   }
 }

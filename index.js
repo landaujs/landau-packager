@@ -2,11 +2,45 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var decache = require('decache');
 
+var Landau = require('@landaujs/landau');
+
 var app = express();
 app.use(bodyParser.json());
 
-function buildWithPos(obj, pos) {
-  var built = obj.build();
+// build class (e.g. as exported from module)
+function buildClassOrElement(obj) {
+  if (obj.constructor.name === "Function") {
+    return new obj();
+  } else {
+    return obj.build();
+  }
+}
+
+function buildWithPos(obj, fullPos) {
+  var built;
+  var pos = fullPos;
+  if (obj.constructor.name === "Object") {
+    var allBuilt = Object.keys(obj).map(function(key) {
+      return buildClassOrElement(obj[key]);
+    })
+    // Dirty dirty hacks
+    built = {
+      props: {
+        children: allBuilt,
+      },
+      tree: () => ({
+        elementName: 'Module root',
+        props: {},
+        children: allBuilt.map(n => n.tree()),
+      }),
+      render: () => ({
+        polygons: [],
+      }),
+    };
+  } else {
+    built = buildClassOrElement(obj);
+  }
+
   if (pos.length >= 1) {
     for (var i = 0; i <= pos.length - 1; i++) {
       built = built.props.children[pos[i]];
