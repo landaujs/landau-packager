@@ -50,6 +50,18 @@ function buildWithPos(obj, fullPos) {
   return built;
 }
 
+var selecteMaterializedPos = function(materialized, fullPos) {
+  var pos = fullPos;
+  var built = materialized;
+  if (pos.length >= 1) {
+    for (var i = 0; i <= pos.length - 1; i++) {
+      built = built.rendered[pos[i]];
+    }
+  }
+
+  return built;
+}
+
 app.post('/render', function (req, res) {
   console.log('Module ', req.body.module_path, '- render', 'pos', req.body.pos);
   decache(req.body.module_path);
@@ -57,9 +69,15 @@ app.post('/render', function (req, res) {
 
   try {
     var pos = req.body.pos || [];
-    var built = buildWithPos(obj, pos);
+    var build = function() {
+      var materialized = Landau.materializeTree(obj);
 
-    var result = built.render();
+      materialized = selecteMaterializedPos(materialized, pos);
+      var result = Landau.renderAsCsg(materialized, true);
+      return result;
+    };
+
+    var result = build();
     result.type = 'csg'; // needs to be added so it can be parsed as a CSG object
     res.send(JSON.stringify(result));
   } catch (e) {
@@ -74,9 +92,14 @@ app.post('/tree', function (req, res) {
 
   try {
     var pos = req.body.pos || [];
-    var built = buildWithPos(obj, pos);
+    var build = function() {
+      var materialized = Landau.materializeTree(obj);
 
-    var result = built.tree();
+      materialized = selecteMaterializedPos(materialized, pos);
+      var result = Landau.renderAsTree(materialized, true);
+      return result;
+    };
+    var result = build();
     res.send(JSON.stringify(result));
   } catch (e) {
     console.error('ERROR', e);

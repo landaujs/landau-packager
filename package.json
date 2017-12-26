@@ -1,6 +1,6 @@
 {
   "name": "@landaujs/landau-packager",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Server for rendering Landau components to 3D objects",
   "main": "index.js",
   "repository": "github:landaujs/landau-packager",
@@ -13,6 +13,6 @@
     "express": "^4.15.3"
   },
   "peerDependencies": {
-    "@landaujs/landau": "0.0.1"
+    "@landaujs/landau": "0.1.0"
   }
 }
