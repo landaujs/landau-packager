@@ -1,0 +1,24 @@
+{
+  "name": "simple",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "packager": "landau-packager"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/register": "^7.13.14",
+    "@landaujs/landau": "0.2.0-alpha.2",
+    "@landaujs/landau-packager": "file:../..",
+    "microbundle": "^0.13.0",
+    "react": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.14",
+    "babel-preset-react-app": "^10.0.0"
+  }
+}
