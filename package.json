@@ -1,6 +1,6 @@
 {
   "name": "@landaujs/landau-packager",
-  "version": "0.2.0-alpha.1",
+  "version": "0.2.0-alpha.2",
   "description": "Server for rendering Landau components to 3D objects",
   "bin": {
     "landau-packager": "index.js"
